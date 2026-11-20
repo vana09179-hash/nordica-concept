@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Nordica Residence | концепт-редизайн (портфоліо)</title>
+  <meta name="description" content="Nordica Residence, житловий комплекс бізнес-класу на нижньому Печерську, Залізничне шосе, 45А.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,500&family=Manrope:wght@400;500;600;700&family=Unbounded:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sections.css">
+  <link rel="stylesheet" href="css/chooser.css">
+</head>
+<body>
+  <div class="concept-badge">Концепт · портфоліо</div>
+
+  <div class="cursor" id="cursor"><span class="cursor__label" id="cursor-label"></span></div>
+  <div class="cursor-dot" id="cursor-dot"></div>
+  <div class="progress" id="progress"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <div class="preloader" id="preloader">
+    <div class="preloader__label">Nordica Residence</div>
+    <div class="preloader__count"><span id="preloader-num">0</span>%</div>
+    <div class="preloader__bar"><i id="preloader-bar"></i></div>
+  </div>
+
+  <header class="header">
+    <button class="header__menu" id="menu-btn" aria-label="Меню">
+      <span class="burger"><i></i><i></i></span><span class="header__menu-text">Меню</span>
+    </button>
+    <a class="header__logo" href="#hero">NORDICA</a>
+    <div class="header__right">
+      <a class="header__lang" href="#">EN</a>
+      <button class="btn btn--dark js-open-form magnetic">Консультація</button>
+    </div>
+  </header>
+
+  <nav class="menu" id="menu">
+    <a href="#concept"><small>01</small>Концепція</a>
+    <a href="#location"><small>02</small>Локація</a>
+    <a href="#infra"><small>03</small>Інфраструктура</a>
+    <a href="#plans"><small>04</small>Планування</a>
+    <a href="#gallery"><small>05</small>Галерея</a>
+    <a href="#progress-build"><small>06</small>Хід будівництва</a>
+    <a href="#contacts"><small>07</small>Контакти</a>
+  </nav>
+
+  <main>
+    <!-- ПЕРШИЙ ЕКРАН: обліт → картка → «ліногравюра» -->
+    <section class="hero" id="hero">
+      <div class="hero__media" id="hero-media">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero__shade"></div>
+      </div>
+      <canvas class="hero__stripes" id="stripe-canvas"></canvas>
+
+      <div class="hero__top">
+        <h1 class="hero__title barcode">NORDICA</h1>
+        <div class="hero__stats">
+          <div class="stat"><span class="stat__num">26</span><span class="stat__cap">поверхів<br>у найвищій секції</span></div>
+          <div class="stat"><span class="stat__num">2,7&nbsp;м</span><span class="stat__cap">висота<br>стель</span></div>
+        </div>
+      </div>
+
+      <div class="hero__left">
+        <h2 class="hero__lead">Північний спокій<br>на схилах<br>Печерська</h2>
+        <div class="hero__chips">
+          <div class="chip"><mark>Залізничне шосе, 45А</mark><span>нижній Печерськ</span></div>
+          <div class="chip"><span>Девелопер</span><mark>РІЕЛ</mark></div>
+          <div class="chip"><span>Бізнес-клас</span><mark>3 черги</mark></div>
+        </div>
+      </div>
+
+      <button class="hero__cta js-open-form magnetic" data-cursor="Обрати"><span>Обрати<br>квартиру</span></button>
+      <div class="hero__scroll">гортайте ↓</div>
+    </section>
+
+    <!-- ВИБІР КВАРТИРИ: одразу після «гравюри» -->
+    <section class="choose" id="choose">
+      <div class="choose__stage" id="choose-stage">
+        <img src="media/photos/facade.webp" alt="Фасад Nordica Residence" id="choose-img" draggable="false">
+        <svg class="choose__svg" id="choose-svg" viewBox="0 0 1850 1040" preserveAspectRatio="xMidYMid slice" aria-label="Оберіть поверх"></svg>
+        <div class="choose__tip" id="choose-tip"></div>
+      </div>
+      <aside class="choose__panel">
+        <h2 class="choose__title">Оберіть<br>свою висоту</h2>
+        <p class="choose__hint" id="choose-hint">Наведіть на фасад і натисніть на поверх</p>
+        <div class="choose__tabs" id="choose-tabs"></div>
+        <div class="choose__floor">
+          <button class="choose__step" data-step="-1" aria-label="Поверх нижче">↓</button>
+          <div><span id="choose-floor">—</span><small>поверх</small></div>
+          <button class="choose__step" data-step="1" aria-label="Поверх вище">↑</button>
+        </div>
+        <ul class="apts" id="apts"></ul>
+        <div class="apt-detail" id="apt-detail" hidden>
+          <div class="apt-detail__head"><b id="apt-name"></b><span id="apt-meta"></span></div>
+          <div class="apt-detail__btns">
+            <button class="btn btn--sun magnetic" id="fly-btn" data-cursor="Політ">Залетіти всередину</button>
+            <button class="btn btn--line js-open-form">Дізнатися ціну</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- Проліт у квартиру (заготовка під відео) -->
+    <div class="flyin" id="flyin" aria-hidden="true">
+      <div class="flyin__zoom" id="flyin-zoom"><img src="media/photos/facade.webp" alt=""></div>
+      <video class="flyin__video" id="flyin-video" playsinline muted preload="none"></video>
+      <div class="flyin__placeholder" id="flyin-ph">
+        <b>Тут буде відео прольоту дрона в квартиру</b>
+        <span>Покладіть файл у <code>media/flyin/apartment.mp4</code></span>
+      </div>
+      <div class="flyin__label" id="flyin-label"></div>
+      <button class="flyin__close" id="flyin-close" aria-label="Повернутися до вибору">← До вибору</button>
+    </div>
+
+    <!-- ПРОЛОГ -->
+    <section class="prologue" id="prologue">
+      <div class="prologue__inner">
+        <div class="prologue__label">Пролог</div>
+        <p class="quote" id="quote">«Між ботанічним садом і Дніпром є місце, де місто звучить тихіше. Ми взяли від півночі головне: світло, чисті лінії і повагу до простору. І збудували дім, у який хочеться повертатися щовечора»</p>
+        <a class="pill magnetic" href="#plans" data-cursor="Далі">Подивитися планування</a>
+      </div>
+    </section>
+
+    <!-- БАХРОМА + НАЗВА + ПТАХИ -->
+    <section class="brand" id="brand">
+      <canvas class="brand__fringe" id="fringe-canvas"></canvas>
+      <div class="brand__birds" id="birds"></div>
+      <div class="brand__inner">
+        <h2 class="brand__name">Nordica</h2>
+        <div class="brand__sub">Residence · Pechersk · Kyiv</div>
+      </div>
+    </section>
+
+    <!-- БІЖУЧИЙ РЯДОК -->
+    <section class="marquee" aria-label="Переваги">
+      <div class="marquee__track" id="marquee">
+        <span>Двір без авто</span><i>✳</i><span>Тераса на даху</span><i>✳</i><span>Садочок на 80 дітей</span><i>✳</i><span>Smart Home Ajax</span><i>✳</i><span>Підземний паркінг</span><i>✳</i>
+      </div>
+    </section>
+
+    <!-- 01 КОНЦЕПЦІЯ -->
+    <section class="concept" id="concept">
+      <div class="sec-head">
+        <h2 class="sec-title split">Фасад, який<br>малює світлом</h2>
+      </div>
+      <div class="concept__grid">
+        <div class="concept__text">
+          <p class="lead">Темні площини фасаду перетинають білі рамки. Вдень вони читаються як графіка, увечері як світлові лінії. Ми зробили цей малюнок головним мотивом усього проєкту.</p>
+          <ul class="ticks">
+            <li><b>Три будинки</b><span>від 14 до 26 поверхів</span></li>
+            <li><b>Закрита територія</b><span>доступ зі смартфона, охорона 24/7</span></li>
+            <li><b>Енергоклас B</b><span>утеплений фасад, автономне живлення ключових систем</span></li>
+          </ul>
+        </div>
+        <figure class="concept__figure" data-cursor="Фасад">
+          <img src="media/photos/courtyard.webp" alt="Двір Nordica Residence між секціями" loading="lazy">
+          <svg class="frames" viewBox="0 0 100 62.5" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <path d="M6 58 V8 H30 V58" /><path d="M12 58 V20 H24 V58" />
+            <path d="M54 58 V12 H70 V30 H90 V58" /><path d="M60 58 V36 H82 V58" />
+            <path d="M74 12 V4 H96 V24" />
+          </svg>
+          <figcaption>Внутрішній двір між секціями, візуалізація</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- 02 ЛОКАЦІЯ -->
+    <section class="location" id="location">
+      <div class="sec-head sec-head--light">
+        <h2 class="sec-title split">Печерськ,<br>але без шуму</h2>
+      </div>
+      <div class="location__grid">
+        <div class="map" id="map">
+          <svg viewBox="0 0 600 520" aria-label="Схема локації">
+            <path class="map__river" d="M560 -10 C 520 120, 600 220, 540 330 S 520 470, 590 540 L 640 540 L 640 -10 Z"/>
+            <path class="map__park" d="M70 330 C 40 260, 120 200, 200 230 C 270 255, 290 330, 240 380 C 190 430, 100 410, 70 330 Z"/>
+            <path class="map__rail" d="M380 -10 C 400 120, 420 260, 470 540"/>
+            <path class="map__road" d="M0 120 C 150 140, 320 150, 600 110"/>
+            <path class="map__road" d="M140 -10 C 170 160, 220 300, 300 540"/>
+            <path class="map__road map__road--main" d="M330 -10 C 350 140, 370 280, 420 540"/>
+            <path class="map__route" id="map-route" d="M352 230 C 300 250, 260 280, 200 300"/>
+            <g class="map__pin" data-id="garden" transform="translate(170 300)"><circle r="7"/><text x="12" y="4">Ботанічний сад</text></g>
+            <g class="map__pin" data-id="zvir" transform="translate(250 420)"><circle r="7"/><text x="12" y="4">М Звіринецька</text></g>
+            <g class="map__pin" data-id="vyd" transform="translate(455 455)"><circle r="7"/><text x="-120" y="4">М Видубичі</text></g>
+            <g class="map__pin" data-id="ocean" transform="translate(300 70)"><circle r="7"/><text x="12" y="4">Ocean Plaza</text></g>
+            <g class="map__pin" data-id="lyb" transform="translate(150 60)"><circle r="7"/><text x="12" y="4">М Либідська</text></g>
+            <g class="map__home" transform="translate(352 230)">
+              <circle class="map__pulse" r="12"/><circle class="map__pulse map__pulse--2" r="12"/>
+              <rect x="-11" y="-11" width="22" height="22"/>
+              <text x="18" y="5">NORDICA</text>
+            </g>
+          </svg>
+        </div>
+        <ul class="places" id="places">
+          <li data-id="garden"><span class="places__t">5 хв</span><span class="places__n">Ботанічний сад ім. Гришка</span><span class="places__m">пішки</span></li>
+          <li data-id="zvir"><span class="places__t">10 хв</span><span class="places__n">Метро «Звіринецька»</span><span class="places__m">пішки</span></li>
+          <li data-id="vyd"><span class="places__t">10 хв</span><span class="places__n">Метро «Видубичі»</span><span class="places__m">пішки</span></li>
+          <li data-id="ocean"><span class="places__t">5 хв</span><span class="places__n">ТРЦ Ocean Plaza</span><span class="places__m">автівкою</span></li>
+          <li data-id="lyb"><span class="places__t">5 хв</span><span class="places__n">Метро «Либідська»</span><span class="places__m">автівкою</span></li>
+        </ul>
+      </div>
+      <p class="note note--light">Час у дорозі орієнтовний.</p>
+    </section>
+
+    <!-- 03 ІНФРАСТРУКТУРА: горизонтальна стрічка -->
+    <section class="infra" id="infra">
+      <div class="infra__pin">
+        <div class="sec-head">
+          <h2 class="sec-title split">Усе потрібне<br>у межах двору</h2>
+        </div>
+        <div class="infra__track" id="infra-track">
+          <article class="card card--photo">
+            <img src="media/photos/lounge.webp" alt="Лаунж-зона для мешканців" loading="lazy">
+            <div class="card__body"><span class="card__n">01</span><h3>Лаунж для мешканців</h3><p>Місце для зустрічей, роботи з ноутбуком і вечірньої кави без виходу з дому.</p></div>
+          </article>
+          <article class="card card--sun">
+            <svg class="card__icon" viewBox="0 0 64 64"><path d="M8 52h48M14 52V30l18-14 18 14v22M26 52V38h12v14"/><circle cx="50" cy="14" r="5"/></svg>
+            <span class="card__n">02</span><h3>Двір без автомобілів</h3><p>Машини лишаються під землею, а нагорі дитячі й спортивні майданчики та зелень.</p>
+          </article>
+          <article class="card card--sky">
+            <svg class="card__icon" viewBox="0 0 64 64"><circle cx="22" cy="20" r="7"/><circle cx="42" cy="24" r="5"/><path d="M10 52c0-10 5-17 12-17s12 7 12 17M32 52c1-8 5-13 10-13s9 5 10 13"/></svg>
+            <span class="card__n">03</span><h3>Садочок на 80 дітей</h3><p>Приватний дитячий садок повного дня прямо на території комплексу.</p>
+          </article>
+          <article class="card card--fjord">
+            <svg class="card__icon" viewBox="0 0 64 64"><path d="M6 40h52M12 40V26h40v14M20 26v-8h24v8"/><path d="M14 48h36"/></svg>
+            <span class="card__n">04</span><h3>Тераса на даху</h3><p>Лаунж-зона нагорі з видом на печерські пагорби та Дніпро.</p>
+          </article>
+          <article class="card card--snow">
+            <svg class="card__icon" viewBox="0 0 64 64"><rect x="10" y="14" width="44" height="36" rx="4"/><path d="M22 42V22h10a6 6 0 0 1 0 12H22"/></svg>
+            <span class="card__n">05</span><h3>Підземний паркінг</h3><p>Понад 500 машиномісць з автоматичним доступом і велопаркінг.</p>
+          </article>
+          <article class="card card--sun">
+            <svg class="card__icon" viewBox="0 0 64 64"><rect x="18" y="8" width="28" height="48" rx="5"/><circle cx="32" cy="46" r="3"/><path d="M26 18h12"/></svg>
+            <span class="card__n">06</span><h3>Smart Home Ajax</h3><p>Стартовий комплект безпеки в кожній квартирі з можливістю розширення.</p>
+          </article>
+          <article class="card card--sky">
+            <svg class="card__icon" viewBox="0 0 64 64"><path d="M10 22l22-12 22 12v24L32 58 10 46z"/><path d="M10 22l22 12 22-12M32 34v24"/></svg>
+            <span class="card__n">07</span><h3>Кімната для посилок</h3><p>Кур'єр залишить замовлення, навіть коли вас немає вдома.</p>
+          </article>
+          <article class="card card--photo">
+            <img src="media/photos/facade.webp" alt="Комерційні приміщення на перших поверхах" loading="lazy">
+            <div class="card__body"><span class="card__n">08</span><h3>Перші поверхи — для життя</h3><p>Кав'ярні, аптека, магазини та салони краси під вашими вікнами.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ЦИФРИ -->
+    <section class="facts" id="facts">
+      <div class="facts__grid">
+        <div class="fact"><div class="fact__num"><span class="count" data-to="26">0</span></div><div class="fact__cap">поверхів у найвищій секції</div></div>
+        <div class="fact"><div class="fact__num"><span class="count" data-to="523">0</span></div><div class="fact__cap">місця в підземному паркінгу</div></div>
+        <div class="fact"><div class="fact__num"><span class="count" data-to="80">0</span></div><div class="fact__cap">дітей у власному садочку</div></div>
+        <div class="fact"><div class="fact__num"><span class="count" data-to="2.7" data-dec="1">0</span>&nbsp;м</div><div class="fact__cap">висота стель у квартирах</div></div>
+      </div>
+    </section>
+
+    <!-- 04 ПЛАНУВАННЯ -->
+    <section class="plans" id="plans">
+      <div class="sec-head">
+        <h2 class="sec-title split">Квартири,<br>де є куди рости</h2>
+      </div>
+      <div class="plans__tabs" role="tablist">
+        <button class="tab is-active" data-plan="0" role="tab">1 кімната</button>
+        <button class="tab" data-plan="1" role="tab">2 кімнати</button>
+        <button class="tab" data-plan="2" role="tab">3 кімнати</button>
+      </div>
+      <div class="plans__grid">
+        <div class="plan" id="plan-view">
+          <svg viewBox="0 0 400 300" id="plan-svg" aria-label="Схема планування"></svg>
+        </div>
+        <div class="plans__info">
+          <div class="plans__area"><span id="plan-area">42–69</span><small>м²</small></div>
+          <p class="plans__desc" id="plan-desc"></p>
+          <ul class="specs">
+            <li><span>Стелі</span><b>2,7 м</b></li>
+            <li><span>Конструкція</span><b>монолітний каркас</b></li>
+            <li><span>Стан</span><b>без ремонту</b></li>
+          </ul>
+          <button class="btn btn--sun js-open-form magnetic">Дізнатися ціну</button>
+        </div>
+      </div>
+      <p class="note">Схеми умовні. Актуальні планування та ціни уточнюйте у відділі продажу.</p>
+    </section>
+
+    <!-- 05 ГАЛЕРЕЯ -->
+    <section class="gallery" id="gallery">
+      <div class="sec-head sec-head--light">
+        <h2 class="sec-title split">Подивіться<br>ближче</h2>
+        <p class="gallery__hint">Тягніть стрічку або гортайте ←&nbsp;→</p>
+      </div>
+      <div class="gallery__viewport" id="gallery-viewport" data-cursor="Тягни">
+        <div class="gallery__track" id="gallery-track">
+          <figure class="shot shot--wide" data-full="media/photos/facade.webp"><div class="shot__img"><img src="media/photos/facade.webp" alt="Фасади Nordica Residence на заході сонця" loading="lazy" draggable="false"></div><figcaption><b>01</b> Фасади на заході сонця</figcaption></figure>
+          <figure class="shot" data-full="media/photos/aerial.webp"><div class="shot__img"><img src="media/photos/aerial.webp" alt="Комплекс з висоти пташиного польоту" loading="lazy" draggable="false"></div><figcaption><b>02</b> З висоти: зелений масив поруч</figcaption></figure>
+          <figure class="shot shot--tall" data-full="media/photos/courtyard.webp"><div class="shot__img"><img src="media/photos/courtyard.webp" alt="Двір без автомобілів" loading="lazy" draggable="false"></div><figcaption><b>03</b> Двір без автомобілів</figcaption></figure>
+          <figure class="shot" data-full="media/photos/lounge.webp"><div class="shot__img"><img src="media/photos/lounge.webp" alt="Лаунж-зона" loading="lazy" draggable="false"></div><figcaption><b>04</b> Лаунж для мешканців</figcaption></figure>
+          <figure class="shot shot--wide" data-full="media/photos/approach.webp"><div class="shot__img"><img src="media/photos/approach.webp" alt="Під'їзд до комплексу" loading="lazy" draggable="false"></div><figcaption><b>05</b> Комплекс серед зелені</figcaption></figure>
+        </div>
+      </div>
+      <div class="gallery__bar"><i id="gallery-bar"></i></div>
+    </section>
+
+    <!-- 06 ХІД БУДІВНИЦТВА -->
+    <section class="build" id="progress-build">
+      <div class="sec-head">
+        <h2 class="sec-title split">Три черги,<br>одна історія</h2>
+      </div>
+      <ol class="stages">
+        <li class="stage stage--done">
+          <div class="stage__q">Черга 1</div>
+          <div class="stage__name">Будинок 1</div>
+          <div class="stage__bar"><i data-w="100"></i></div>
+          <div class="stage__status">Введено в експлуатацію</div>
+        </li>
+        <li class="stage">
+          <div class="stage__q">Черга 2</div>
+          <div class="stage__name">Будинок 2 · секції 2–4</div>
+          <div class="stage__bar"><i data-w="93"></i></div>
+          <div class="stage__status">Фінальний етап, введення у 2026</div>
+        </li>
+        <li class="stage stage--new">
+          <div class="stage__q">Черга 3</div>
+          <div class="stage__name">Будинок 3</div>
+          <div class="stage__bar"><i data-w="12"></i></div>
+          <div class="stage__status">Старт продажів · завершення II кв. 2028</div>
+        </li>
+      </ol>
+      <p class="note">Ступінь готовності орієнтовний. Фотозвіти та офіційні терміни уточнюйте у відділі продажу.</p>
+    </section>
+
+    <!-- 07 УМОВИ -->
+    <section class="terms">
+      <div class="sec-head sec-head--light">
+        <h2 class="sec-title split">Як стати<br>власником</h2>
+      </div>
+      <div class="terms__grid">
+        <div class="term"><span class="term__big">01</span><h3>Розтермінування</h3><p>Не потрібно сплачувати всю суму одразу: внески розподіляються на період будівництва.</p></div>
+        <div class="term"><span class="term__big">02</span><h3>Повна оплата</h3><p>Фіксуєте квартиру та ціну в один день. Спеціальні умови діють на старті нової черги.</p></div>
+        <div class="term"><span class="term__big">03</span><h3>Державні програми</h3><p>Можливість купівлі з єОселя та єВідновлення. Умови уточнюйте у менеджера.</p></div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <div class="sec-head">
+        <h2 class="sec-title split">Питання,<br>які ставлять найчастіше</h2>
+      </div>
+      <div class="faq__list">
+        <details><summary>Де саме розташований комплекс?<i></i></summary><div><p>На нижньому Печерську, Залізничне шосе, 45А, поруч із ботанічним садом ім. Гришка та кварталом «Новопечерські Липки».</p></div></details>
+        <details><summary>Які квартири є у продажу?<i></i></summary><div><p>Одно-, дво- та трикімнатні квартири площею приблизно від 42 до 106 м². Актуальну наявність підкаже менеджер.</p></div></details>
+        <details><summary>Чи є паркінг?<i></i></summary><div><p>Так, підземний паркінг на понад 500 машиномісць з автоматичним контролем доступу та велопаркінг.</p></div></details>
+        <details><summary>Що є для дітей?<i></i></summary><div><p>Приватний садочок повного дня на 80 місць, дитячі та спортивні майданчики у дворі без автомобілів.</p></div></details>
+        <details><summary>Коли буде готова третя черга?<i></i></summary><div><p>Завершення будівництва третьої черги заплановано на ІІ квартал 2028 року.</p></div></details>
+        <details><summary>Чи можна купити в розтермінування?<i></i></summary><div><p>Так, діє розтермінування на період будівництва. Також можливі державні програми, деталі у відділі продажу.</p></div></details>
+      </div>
+    </section>
+
+    <!-- КОНТАКТИ -->
+    <section class="cta" id="contacts">
+      <div class="cta__inner">
+        <h2 class="cta__title">Приходьте<br>подивитися наживо</h2>
+        <button class="btn btn--sun btn--big js-open-form magnetic" data-cursor="Записатися">Записатися на показ</button>
+        <div class="cta__cols">
+          <div><small>Відділ продажу</small><p>Київ, Дніпровська набережна, 17К</p></div>
+          <div><small>Телефон</small><p><a href="tel:+380732984119">+38 073 298 41 19</a></p></div>
+          <div><small>Адреса комплексу</small><p>Залізничне шосе, 45А</p></div>
+        </div>
+      </div>
+      <footer class="footer">
+        <span>Концепт-редизайн для портфоліо. Не є офіційним сайтом ЖК Nordica Residence та девелопера РІЕЛ.</span>
+        <span>Візуалізації можуть відрізнятися від реального вигляду</span>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Лайтбокс галереї -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Закрити">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" aria-label="Попереднє">←</button>
+    <img src="media/photos/facade.webp" alt="Фото з галереї" id="lightbox-img">
+    <button class="lightbox__nav lightbox__nav--next" aria-label="Наступне">→</button>
+    <div class="lightbox__cap" id="lightbox-cap"></div>
+  </div>
+
+  <!-- Форма -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal__backdrop js-close-form"></div>
+    <form class="modal__box" id="lead-form">
+      <button type="button" class="modal__close js-close-form" aria-label="Закрити">×</button>
+      <h3>Підберемо квартиру</h3>
+      <p class="modal__sub"><b>Демо-форма, дані не надсилаються.</b> Залиште номер — менеджер передзвонить і розповість про наявність та ціни.</p>
+      <input name="name" placeholder="Ім'я" required>
+      <input name="phone" type="tel" placeholder="Телефон" required>
+      <label class="check"><input type="checkbox" required> Погоджуюсь з політикою конфіденційності</label>
+      <button class="btn btn--dark" type="submit">Надіслати запит</button>
+      <div class="modal__ok">Це демонстраційна форма портфоліо: заявка нікуди не надсилається.</div>
+    </form>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/sections.js"></script>
+  <script src="js/chooser.js"></script>
+</body>
+</html>
